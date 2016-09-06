@@ -19,7 +19,6 @@ if not settings.configured:
             'django.contrib.contenttypes',
             'django.contrib.sessions',
             'django.contrib.messages',
-            'django.contrib.sites',
             'tos',
             'tos.tests'
         ],

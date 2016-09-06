@@ -5,7 +5,11 @@ from django.contrib import messages
 from django.contrib.auth import login as auth_login
 from django.contrib.auth import REDIRECT_FIELD_NAME
 from django.contrib.auth.forms import AuthenticationForm
-from django.contrib.sites.models import Site
+try:
+    from django.contrib.sites.models import Site
+except RuntimeError:
+    Site = None
+
 from django.http import HttpResponseRedirect
 from django.shortcuts import render_to_response
 from django.template import RequestContext
@@ -125,7 +129,7 @@ def login(request, template_name='registration/login.html',
 
     request.session.set_test_cookie()
 
-    if Site._meta.installed:
+    if Site is not None:
         current_site = Site.objects.get_current()
     else:
         current_site = get_request_site()(request)
